@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "mcci-hitw-helper",
+	"version": "${version}",
+	"name": "MCCI HITW helper",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Agent Kosticka"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "ARR",
+	"icon": "assets/mcci-hitw-helper/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "com.agentkosticka.Main"
+		],
+		"client": [
+			"com.agentkosticka.Client"
+		],
+		"fabric-datagen": [
+			"com.agentkosticka.DataGenerator"
+		]
+	},
+	"mixins": [
+		"mcci-hitw-helper.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.19.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
