@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 public class Client implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-
         KeyInputHandler.register();
     }
 }
