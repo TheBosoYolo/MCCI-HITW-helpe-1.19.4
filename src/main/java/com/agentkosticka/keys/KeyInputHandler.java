@@ -1,8 +1,10 @@
 package com.agentkosticka.keys;
 
 
+import com.agentkosticka.identify.RecogniseBlocks;
 import com.agentkosticka.overlay.OverlayManager;
 import com.agentkosticka.shared.SharedMethods;
+import com.agentkosticka.shared.SharedVariables;
 import me.x150.renderer.event.RenderEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -22,14 +24,21 @@ public class KeyInputHandler {
     public static KeyBinding enableButton;
 
     public static void registerInputs(){
-        RenderEvents.WORLD.register(client -> {
-
-                try{
-                    PlayerEntity player = MinecraftClient.getInstance().player;
-                    OverlayManager.renderOutline(new BlockPos(0, 0, 0), new Color(0, 255, 120, 255));
-                } catch (Exception e){
-                    SharedMethods.sendCustomMessageToClient("Error: "+e);
+        RenderEvents.WORLD.register(matrixStack -> {
+            if(enableButton.wasPressed()) {
+                SharedVariables.active = !SharedVariables.active;
+            }
+            if(SharedVariables.active){
+                if(SharedVariables.floorCorner1 == null || SharedVariables.floorCorner2 == null){
+                    RecogniseBlocks.findFloorBounds();
                 }
+                OverlayManager.renderBigOutline(matrixStack, SharedVariables.floorCorner1, SharedVariables.floorCorner2, new Color(255, 0, 255, 255));
+            }
+            else{
+                SharedVariables.isFloorFound = false;
+                SharedVariables.floorCorner1 = null;
+                SharedVariables.floorCorner2 = null;
+            }
         });
     }
     public static void register(){
